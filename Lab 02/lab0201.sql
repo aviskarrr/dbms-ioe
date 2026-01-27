@@ -62,48 +62,137 @@ ALTER TABLE issue ALTER COLUMN iname varchar(20) NOT NULL; -- setting name attri
 
 -- inserting into tables
 -- Insert into student
-INSERT INTO student (sid, sname, rn, batch) VALUES
-(1, 'Suresh', 101, 1),
-(2, 'Rita', 102, 1),
-(3, 'Arjun', 103, 2),
-(4, 'Apil', 104, 2);
+INSERT INTO student (sid, sname, batch) VALUES
+(1, 'Suresh', 81),
+(2, 'Rita', 78),
+(3, 'Arjun', 80),
+(4, 'Apil', 79);
 
 -- Insert into teacher
 INSERT INTO teacher (tid, tname, doj, salary) VALUES
-(1, 'Prakash', '2022-01-15', 45000),
-(2, 'Sunita', '2021-03-10', 50000),
-(3, 'Mohan', '2020-07-20', 47000),
-(4, 'Kumari', '2019-11-05', 52000);
+(1, 'Sudan', '2022-01-15', 45000),
+(2, 'Mohan', '2021-03-10', 50000),
+(3, 'Miraj', '2020-07-20', 47000),
+(4, 'Prachanda', '2019-11-05', 52000);
 
 -- Insert into employee
 INSERT INTO employee (eid, ename, doe, salary) VALUES
-(1, 'Ramesh', '2022-06-01', 30000),
-(2, 'Anita', '2021-09-12', 32000),
-(3, 'Bikash', '2020-02-28', 31000),
-(4, 'Laxmi', '2019-12-15', 33000);
+(1, 'Ravi', '2022-06-01', 30000),
+(2, 'Swarnim', '2021-09-12', 32000),
+(3, 'Raj', '2020-02-28', 31000);
+insert into employee(eid, ename, salary) values (1,'ram', 2500)
+
+-- if you want to set default value then:
 
 -- Insert into booklist
 INSERT INTO booklist (isbn, name, pub) VALUES
-(1001, 'Math Basics', 'NepalPub'),
+(1001, 'Maths', 'NepalPub'),
 (1002, 'Science Lab', 'KathmanduBooks'),
 (1003, 'English Writing', 'HimalayaPub'),
 (1004, 'Social Studies', 'EverestBooks');
 
 -- Insert into book
 INSERT INTO book (bid, bname, author, price) VALUES
-(1, 'Math Basics', 'Prakash', 500),
-(2, 'Science Lab', 'Sunita', 600),
-(3, 'English Writing', 'Mohan', 550),
-(4, 'Social Studies', 'Kumari', 450);
+(1001, 'Maths', 'Prakash', 500),
+(1002, 'Science Lab', 'Sunita', 600),
+(1003, 'English Writing', 'Mohan', 4500),
+(1004, 'Social Studies', 'Kumari', 450);
 
 -- Insert into issue
 INSERT INTO issue (iid, iname, doi) VALUES
-(1, 'Math Basics', '2025-12-01'),
-(2, 'Science Lab', '2025-12-05'),
-(3, 'English Writing', '2025-12-10'),
-(4, 'Social Studies', '2025-12-15');
+(1001, 'Maths', '2025-12-01'),
+(1002, 'Science Lab', '2025-12-05'),
+(1003, 'English Writing', '2025-12-10'),
+(1004, 'Social Studies', '2025-12-15');
 
 
+select * from student;
+select * from teacher;
+select * from booklist;
+select * from employee;
+select * from teacher;
+select * from book;
+select * from issue;
 
 
+select eid,ename from employee where salary<=2500;
+select * from book where price between 1000 and 3000;
 
+DROP table book;
+delete from employee where ename = 'ram';
+
+
+-----------------lab03------------------------
+--is lab 2 contd...
+
+
+--Task 11: display all the records from book relation whose  publication name starts with 'e' eg: "ekta"
+select * from booklist where lower(RTRIM(pub)) like 'E%';
+-- we can also do this like s____ if we know how many words are there
+
+--Task 12: display all the records from book relation whose  publication name ends with 'a' eg: "ekta"
+select * from book where lower(RTRIM(bname)) like '%s';
+
+--Task 13: display sid name from student table whose name consists of 5 characcters
+select sid,sname from student where len(sname)=4;
+--Taks 14: Task 14: Display all record from employee table where name starts with p and salary greater than 25000
+select * from employee where ename like 'r%' and salary>500;
+
+-- task 15: Task 15: display all records from books table where either bid lies in the range 2003 to 2004 or price range in 350 to 450
+SELECT *
+FROM book
+WHERE bid BETWEEN 1001 AND 1002
+   OR price BETWEEN 300 AND 600;
+
+
+--Task 16: display bid number and bookname where records must not contain bid no 2003
+select bid, bname from book where bid != 2;
+
+
+--LAB 03-------LAB 03--------LAB 03-------LAB 03-----------LAB 03-----------LAB 03--------------LAB 03---------LAB 03---------------LAB 03-----LAB 03---------
+
+-- Task 1: find all the book  name, publication name and author name where publication name is 'Ekta'
+select book.bname, booklist.isbn, book.author from booklist,book where book.bid=booklist.isbn and booklist.pub = 'NepalPub';
+
+
+-- use of placeholder
+--select b.bname, ..... from book.b;;;;;;;;;;;;here we can use b instead of book; as a placeholder
+-- Task 2: Find the teachers name and faculty who issued book on jan1, 2010
+
+select book.author, issue.iname, issue.doi from book,issue where issue.iid=book.bid and issue.doi = '2025-12-01';
+
+
+--task 3 : Task 3: update a few records in teacher and employee teacher to make tname= ename
+		--find the employees name whose salary is greater than 30000 and doj is "2021-09-12"
+UPDATE employee
+SET ename = 'Mohan', salary = 50000
+WHERE eid = 2;
+
+select employee.ename from employee, teacher where ename = tname AND employee.salary > 30000 AND doe = '2021-09-12';
+
+--task 4: add attribute bid on issue relation
+ALTER TABLE issue ADD bid int;
+
+-- task 5: insert the data in bid column of issues
+
+update issue set bid = 1 where iid = 1001;
+ select * from issue;
+
+
+ --task 6: inclrease employee and teacher sal by 10%
+ -- task 6
+update teacher set salary = 1.1*salary
+update employee set salary = 1.1*salary
+
+
+--task 7:increase the salary of all employees by 20% whose salary is less than 50000.
+
+update employee set salary = 1.2*salary where salary < 50000;
+update teacher set salary = 1.2*salary where salary < 50000;
+
+-- task 8:update the bookname 'Maths' with 'Database'
+UPDATE book
+SET bname  = 'Database'
+WHERE bname  = 'Maths';
+
+select * from book

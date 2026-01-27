@@ -6,8 +6,7 @@ create table teacher(tid int, sname varchar(20), age int);
 insert into student values(1,'biraj', 30), (2, 'happy', 33), (3, 'd', 32), (4, 'e', 500), (5, 'f', 322);
 EXEC sp_help student;
 
-
-select * from student;
+select * from student, teacher where student.sid=teacher.tid;
 SELECT * 
 from teacher;
 
