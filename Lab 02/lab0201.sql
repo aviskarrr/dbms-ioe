@@ -195,4 +195,4 @@ UPDATE book
 SET bname  = 'Database'
 WHERE bname  = 'Maths';
 
-select * from book
+select * from book;
