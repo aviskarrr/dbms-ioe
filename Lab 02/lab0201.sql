@@ -180,7 +180,7 @@ update issue set bid = 1 where iid = 1001;
 
 
  --task 6: inclrease employee and teacher sal by 10%
- -- task 6
+ 
 update teacher set salary = 1.1*salary
 update employee set salary = 1.1*salary
 
