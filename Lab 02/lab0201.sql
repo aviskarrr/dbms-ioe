@@ -196,3 +196,68 @@ SET bname  = 'Database'
 WHERE bname  = 'Maths';
 
 select * from book;
+
+-- task 10 : provide 5% increment to all salaries whose salary is greater than 20k and 20% increment in rest of slaaries.
+UPDATE employee
+SET salary = CASE
+    WHEN salary > 20000 THEN salary * 1.05
+    ELSE salary * 1.20
+END;
+
+
+--task 10: delete the records from employee table whose eid is 11.
+
+select * from employee;
+
+delete from employee where eid =1 ;
+
+
+
+-- task 11: use sub query to find all teachers name and salary whose data of employee is 2022-01-15
+
+select * from teacher;
+select * from employee;
+ update teacher set doj = '2021-09-12' where tid = 2;
+
+ -- we did this because for this to run; we need to have a same record in both employee and teacher table so we made our target as mohan.
+SELECT t.tname, t.salary
+FROM teacher t
+WHERE t.tid IN (
+    SELECT e.eid
+    FROM employee e
+    WHERE e.doe = '2021-09-12'
+);
+
+
+
+-- task 12: use sub query to find all book names and author name whose publication is ekta
+
+select * from book;
+select * from booklist;
+
+SELECT b.bname, b.author
+FROM book b
+WHERE b.bid IN (
+    SELECT bl.isbn
+    FROM booklist bl
+    WHERE bl.pub = 'NepalPub'
+);
+
+
+
+
+----lab04---------lab04---------lab04---------lab04---------lab04---------lab04---------lab04-----
+
+-- Task 1: Sort the employee records in descending order.
+
+
+SELECT *
+FROM employee
+ORDER BY salary DESC;
+
+
+-- Task 2: Sort name and publication name in ascending order.
+
+SELECT name, pub
+FROM booklist
+ORDER BY name ASC, pub ASC;
