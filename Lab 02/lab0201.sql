@@ -261,3 +261,12 @@ ORDER BY salary DESC;
 SELECT name, pub
 FROM booklist
 ORDER BY name ASC, pub ASC;
+
+--Task 3: Display atop three records from teachers relation
+SELECT TOP 3 *
+FROM teacher;
+
+
+-- Task 4: Display the sum of salaries all employees.
+SELECT SUM(salary) AS total_salary
+FROM employee;
