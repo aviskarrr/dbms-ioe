@@ -222,7 +222,7 @@ select * from employee;
  -- we did this because for this to run; we need to have a same record in both employee and teacher table so we made our target as mohan.
 SELECT t.tname, t.salary
 FROM teacher t
-WHERE t.tid IN (
+WHERE t.tid = (
     SELECT e.eid
     FROM employee e
     WHERE e.doe = '2021-09-12'
@@ -278,7 +278,7 @@ FROM teacher;
 
 
 -- Task 4: Display the sum of salaries all employees.
-SELECT SUM(salary) AS total_salary
+SELECT SUM(salary) as tot
 FROM employee;
 
 
@@ -296,6 +296,8 @@ SELECT author, AVG(price) AS avg_price
 FROM book
 GROUP BY author;
 
+
+
 -- Task 7: Display publication name and number of books published by it from book list relation publication wise.
 
 SELECT pub, COUNT(*) AS total_books
@@ -310,6 +312,8 @@ WHERE price > (
     SELECT AVG(price)
     FROM book
 );
+
+
 
 
 select bid, bname from book where price > (select avg(price) from book)
@@ -336,7 +340,7 @@ FROM teacher t
 JOIN book b ON b.author = t.tname
 WHERE t.salary = (SELECT MAX(salary) FROM teacher);
 
-
+select * from book join teacher on book.author = teacher.tname;
 -- 11. Find the authors name who have written more than one book.
 insert into book (bid, bname, author, price) values (1005,'AI', 'Mohan', 5000);
 
@@ -410,3 +414,100 @@ GO
 EXEC okk;
 
 drop procedure okk;
+
+
+
+-- Create first table
+CREATE TABLE tab1 (
+    id INT,
+    name VARCHAR(20),
+    dept VARCHAR(20)
+);
+
+-- Create second table
+CREATE TABLE tab2 (
+    id INT,
+    dept_name VARCHAR(20)
+);
+
+-- Insert sample data into tab1
+INSERT INTO tab1 (id, name, dept) VALUES
+(1, 'Alice', 'HR'),
+(2, 'Bob', 'Sales'),
+(3, 'Carol', 'IT');
+
+-- Insert sample data into tab2
+INSERT INTO tab2 (id, dept_name) VALUES
+(1, 'HR'),
+(2, 'Sales'),
+(4, 'Finance');
+
+-- LEFT JOIN visualization
+SELECT *
+FROM tab1
+LEFT JOIN tab2
+ON tab1.dept = tab2.dept_name;
+
+-- RIGHT JOIN visualization
+SELECT *
+FROM tab1
+RIGHT JOIN tab2
+ON tab1.dept = tab2.dept_name;
+
+
+select * from tab1 t1 join tab2 t2 on
+
+
+
+select * from teacher;
+
+select MAX(salary) from teacher where salary < (
+select MAX(salary) from teacher
+);
+
+
+select * from book;
+
+
+select * from book where price > 
+(select AVG(price) from book
+);
+
+
+select * from book;
+
+
+select author from book group by author having count(*)>1
+
+select ename from employee where ename in (
+select tname from teacher
+)
+
+
+create view vie1 as 
+select * from tab1
+
+
+select * from vie1
+
+
+create procedure p1 as
+begin 
+select * from vie1
+end
+go 
+
+exec p1
+
+
+select MAX(salary) from employee where salary < 
+(select MAX(salary) from employee);
+
+
+select salary, ename  from employee where salary = (select max(salary) from employee)
+
+
+
+select * from employee where salary> any(
+select salary from teacher
+)
